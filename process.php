@@ -1,15 +1,11 @@
 <?php
-// JSON storage file path
 $file = 'data.json';
-
-// Make sure the file exists
 if (!file_exists($file)) {
     file_put_contents($file, json_encode([]));
 }
 
-// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get form data
+    
     $data = [
         'name' => htmlspecialchars($_POST['name']),
         'email' => htmlspecialchars($_POST['email']),
@@ -21,16 +17,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'timestamp' => date("Y-m-d H:i:s")
     ];
 
-    // Load existing data
+    
     $existingData = json_decode(file_get_contents($file), true);
 
-    // Add new record
+
     $existingData[] = $data;
 
-    // Save updated data back to the file
+ 
     file_put_contents($file, json_encode($existingData, JSON_PRETTY_PRINT));
 
-    // Return formatted response
+    
     echo "
     <h3>Registration Successful!</h3>
     <p><strong>Name:</strong> {$data['name']}</p>
